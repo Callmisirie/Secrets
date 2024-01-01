@@ -12,6 +12,8 @@ const passportLocalMongoose = require("passport-local-mongoose");
 
 const app = express();
 
+const secret = process.env.SESSION_SECRET
+
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
@@ -19,7 +21,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(session({
-    secret: "Our little secret.",
+    secret: secret,
     resave: false,
     saveUninitialized: false
 }));
@@ -101,7 +103,7 @@ app.post("/login", (req, res)=>{
             });
         }
     })
-})
+});
 
 
 app.listen(3000, ()=>{
